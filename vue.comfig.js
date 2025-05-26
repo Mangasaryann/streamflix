@@ -1,6 +1,6 @@
 const { defineConfig } = require("@vue/cli-service");
 
-model.exports = defineConfig({
-  publicPath: "/streamflix/",
-  transpileDependencies: true,
+export default defineConfig({
+  base: "/streamflix/",
+  plugins: [vue()],
 });
