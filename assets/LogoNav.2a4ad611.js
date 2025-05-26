@@ -1,0 +1,1 @@
+import{_ as a,N as o}from"./index.c4540256.js";import{o as r,d as c,f as e,g as t,n as l}from"./vendor.c0c18083.js";const n="_header_1hevx_1";var _={header:n};const d={class:"container"},h={setup(p){return(s,m)=>(r(),c("div",d,[e("header",{class:l(s.classes.header)},[e("nav",null,[t(o)])],2)]))}},i={classes:_};var v=a(h,[["__cssModules",i]]);export{v as L};

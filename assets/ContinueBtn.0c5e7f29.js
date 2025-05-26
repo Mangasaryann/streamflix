@@ -1,0 +1,1 @@
+import{_ as n}from"./index.c4540256.js";import{o as e,d as t,e as o,n as c}from"./vendor.c0c18083.js";const r="_continueBtn_1mhmw_1";var a={continueBtn:r};const l={};function u(s,i){return e(),t("button",{type:"submit",class:c(s.classes.continueBtn)},[o(s.$slots,"default")],2)}const _={classes:a};var f=n(l,[["render",u],["__cssModules",_]]);export{f as C};
