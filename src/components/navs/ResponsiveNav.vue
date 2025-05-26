@@ -1,16 +1,16 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import { onClickOutside } from '@vueuse/core';
-import { getAuth, signOut } from 'firebase/auth';
-import NetflixLogo from '@/components/ui/NetflixLogo.vue';
-import ResponsiveNavLinks from '@/components/navs/ResponsiveNavLinks.vue';
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { onClickOutside } from "@vueuse/core";
+import { getAuth, signOut } from "firebase/auth";
+import NetflixLogo from "@/components/ui/NetflixLogo.vue";
+import ResponsiveNavLinks from "@/components/navs/ResponsiveNavLinks.vue";
 
 const store = useStore();
 const router = useRouter();
 
-const emit = defineEmits(['search']);
+const emit = defineEmits(["search"]);
 
 const userProfiles = computed(() => store.state.userProfiles.userProfiles);
 const currentProfile = computed(() => store.state.userProfiles.clickedProfile);
@@ -20,7 +20,6 @@ const isSearchOpen = ref(false);
 const isProfilesDropdownOpen = ref(false);
 const mobileView = ref(true);
 const clickOutsideRef = ref(null);
-const searchTerm = ref(null);
 
 function toggleNavLinks() {
   isNavOpen.value = !isNavOpen.value;
@@ -33,11 +32,11 @@ function openSearch() {
 function closeSearch() {
   isSearchOpen.value = false;
   searchTerm.value = null;
-  emit('search', searchTerm.value);
+  emit("search", searchTerm.value);
 }
 
 function emitSearch() {
-  emit('search', searchTerm.value);
+  emit("search", searchTerm.value);
 }
 
 function toggleProfilesDropdown() {
@@ -45,23 +44,17 @@ function toggleProfilesDropdown() {
 }
 
 function goToBrowseWithSelectedProfile(selectedProfile) {
-  store.dispatch('SET_CLICKED_PROFILE', selectedProfile);
-  router.push({ name: 'LoadingProfile' });
+  store.dispatch("SET_CLICKED_PROFILE", selectedProfile);
+  router.push({ name: "LoadingProfile" });
 }
 
 function signOutHandler() {
   const auth = getAuth();
   signOut(auth).then(() => {
-    router.push({ name: 'SignIn' });
-    store.dispatch('RESET_CURRENT_USER');
+    router.push({ name: "SignIn" });
+    store.dispatch("RESET_CURRENT_USER");
   });
 }
-
-onClickOutside(clickOutsideRef, () => {
-  isProfilesDropdownOpen.value = false;
-
-  emit('search', searchTerm.value);
-});
 
 //if widow width < 1024px mobileView=true & nav should close else keep nav open
 function handleView() {
@@ -71,11 +64,11 @@ function handleView() {
 
 onMounted(() => {
   handleView();
-  window.addEventListener('resize', handleView);
+  window.addEventListener("resize", handleView);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleView);
+  window.removeEventListener("resize", handleView);
 });
 </script>
 
@@ -99,29 +92,6 @@ onUnmounted(() => {
         </Transition>
       </div>
       <div :class="classes.navRight" ref="clickOutsideRef">
-        <Transition name="slide" mode="out-in">
-          <input
-            type="text"
-            name="search"
-            placeholder="Title"
-            size="10"
-            :class="classes.searchInput"
-            v-if="isSearchOpen"
-            v-model="searchTerm"
-            @keyup="emitSearch"
-        /></Transition>
-        <font-awesome-icon
-          v-if="!isSearchOpen"
-          icon="search"
-          :class="classes.navRightIconSearch"
-          @click="openSearch"
-        />
-        <font-awesome-icon
-          v-if="isSearchOpen"
-          icon="times"
-          :class="classes.navRightIconSearch"
-          @click="closeSearch"
-        />
         <font-awesome-icon
           :icon="currentProfile.icon"
           :class="classes.navRightIcon"
@@ -151,9 +121,9 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" module="classes">
-@use '@/sass/components/navs/responsive-nav';
+@use "@/sass/components/navs/responsive-nav";
 </style>
 
 <style lang="scss" scoped>
-@use '@/sass/animations/animations';
+@use "@/sass/animations/animations";
 </style>

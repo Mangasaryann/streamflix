@@ -1,15 +1,15 @@
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+import { computed } from "vue";
+import { useStore } from "vuex";
 
 const store = useStore();
 
-const emit = defineEmits(['onCloseMovieTrailerOverlay']);
+const emit = defineEmits(["onCloseMovieTrailerOverlay"]);
 
 const movieTrailer = computed(() => store.state.theMovieDB.movieTrailer);
 
 function closeTrailerOverlay() {
-  emit('onCloseMovieTrailerOverlay');
+  emit("onCloseMovieTrailerOverlay");
 }
 </script>
 
@@ -23,7 +23,7 @@ function closeTrailerOverlay() {
       />
     </div>
 
-    <div v-if="movieTrailer.results">
+    <!-- <div v-if="movieTrailer.results">
       <iframe
         :class="classes.ytPlayer"
         type="text/html"
@@ -31,11 +31,10 @@ function closeTrailerOverlay() {
         frameborder="0"
         allow="autoplay; fullscreen; picture-in-picture"
       ></iframe>
-    </div>
-    <p v-else>No data</p>
+    </div> -->
   </div>
 </template>
 
 <style lang="scss" module="classes">
-@use '@/sass/components/ui/movie-modal/modal-trailer-overlay';
+@use "@/sass/components/ui/movie-modal/modal-trailer-overlay";
 </style>

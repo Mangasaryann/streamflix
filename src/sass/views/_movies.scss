@@ -1,4 +1,4 @@
-@use '@/sass/abstracts/mixins/movie-card-grid' as *;
+@use "@/sass/abstracts/mixins/movie-card-grid" as *;
 
 .main {
   min-height: 100vh;
@@ -7,6 +7,18 @@
 }
 
 .movieCardsGrid {
-  @include movieCardGrid;
-  margin-top: 10rem;
+  padding-top: 10rem;
+}
+
+.browse_section {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+}
+
+.movie_title {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--clr-white);
+  margin-bottom: 1rem;
 }

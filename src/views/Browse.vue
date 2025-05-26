@@ -1,13 +1,15 @@
 <script setup>
-import { ref, defineExpose, computed, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import { useSearchMovie } from '@/composables/searchMovie';
-import ResponsiveNav from '@/components/navs/ResponsiveNav.vue';
-import BrowseHeroContent from '@/components/hero/BrowseHeroContent.vue';
-import VideoControls from '@/components/ui/VideoControls.vue';
-import Swiper from '@/components/swiper/Swiper.vue';
-import NetflixBorder from '@/components/ui/NetflixBorder.vue';
-import Footer from '@/components/footer/Footer.vue';
+import { ref, defineExpose, computed, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useSearchMovie } from "@/composables/searchMovie";
+import ResponsiveNav from "@/components/navs/ResponsiveNav.vue";
+import BrowseHeroContent from "@/components/hero/BrowseHeroContent.vue";
+import VideoControls from "@/components/ui/VideoControls.vue";
+import Swiper from "@/components/swiper/Swiper.vue";
+import NetflixBorder from "@/components/ui/NetflixBorder.vue";
+import Footer from "@/components/footer/Footer.vue";
+import movies from "@/api/db.json";
+import MovieCard from "@/components/ui/MovieCard.vue";
 
 const store = useStore();
 
@@ -31,45 +33,43 @@ function replayVideo() {
 }
 
 onMounted(() => {
-  store.dispatch('FETCH_MOVIES');
-  store.dispatch('SET_USER_MOVIE_LIST_FROM_DB');
+  store.dispatch("FETCH_MOVIES");
+  store.dispatch("SET_USER_MOVIE_LIST_FROM_DB");
 });
 </script>
 
 <template>
+  <ResponsiveNav />
   <div :class="classes.browse">
-    <section :class="classes.hero">
-      <ResponsiveNav @search="setSearchTerm" />
-      <video :class="classes.video" ref="video" muted autoplay>
-        <source src="@/assets/videos/showcase.mp4" type="video/mp4" />
-      </video>
-      <div :class="classes.overlay"></div>
+    <div :class="classes.browse_img">
       <div class="container">
-        <BrowseHeroContent />
-        <VideoControls
-          @toggle-video-sound="toggleVideoSound"
-          @replay-video="replayVideo"
-          :isVideoMuted="isVideoMuted"
+        <div :class="classes.browse_content">
+          <h1>Your world of entertainment starts here.</h1>
+          <p>
+            Personalized recommendations, fresh premieres, and iconic hits — all
+            in one place.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <h2 :class="classes.movie_title">Popular</h2>
+      <div :class="classes.browse_section">
+        <MovieCard
+          v-for="movie in movies.slice(0, 5)"
+          v-show="movie.id < 6"
+          :key="movie.id"
+          :movies="movie"
         />
       </div>
-    </section>
-    <div class="container">
-      <section>
-        <Swiper
-          v-for="category in movieData"
-          :key="category.category"
-          :movieData="
-            !searchTerm ? category.movies : searchMovie(category.movies)
-          "
-          :heading="
-            !searchTerm
-              ? category.category
-              : `${searchMovie(category.movies).length} movies found in ${
-                  category.category
-                }`
-          "
+      <h2 :class="classes.movie_title">Full Movies</h2>
+      <div :class="classes.browse_section">
+        <MovieCard
+          v-for="movie in movies.slice(5, 10)"
+          :key="movie.id"
+          :movies="movie"
         />
-      </section>
+      </div>
     </div>
   </div>
   <NetflixBorder />
@@ -77,5 +77,5 @@ onMounted(() => {
 </template>
 
 <style lang="scss" module="classes">
-@use '@/sass/views/browse';
+@use "@/sass/views/browse";
 </style>

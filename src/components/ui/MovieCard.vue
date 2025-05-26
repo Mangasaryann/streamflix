@@ -12,70 +12,26 @@ const props = defineProps({
 
 const { isMovieModalOpen, clickedMovie, openModal, closeModals } = useModal();
 
-const {
-  openMovieTrailerModal,
-  closeMovieTrailerModal,
-  isBackdropOpen,
-} = useMovieTrailer();
+const { openMovieTrailerModal, closeMovieTrailerModal, isBackdropOpen } =
+  useMovieTrailer();
 
-const {
-  addToProfileList,
-  deleteFromProfileList,
-  isMovieInUserList,
-} = useProfileMovieList();
+const { addToProfileList, deleteFromProfileList, isMovieInUserList } =
+  useProfileMovieList();
 </script>
 
 <template>
-  <div :class="classes.movieCard" v-for="movie in props.movies" :key="movie.id">
+  <div class="move_card" :key="movies.id">
     <div :class="classes.movieCardOverlay"></div>
     <img
-      :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`"
-      alt="movie poster"
+      class="move_img"
+      styles="{{height:100%}}"
+      :src="movies.img"
+      alt="movie
+    poster"
     />
-
-    <div :class="classes.movieCardIcons">
-      <font-awesome-icon
-        icon="play"
-        :class="classes.cardIcon"
-        @click="openMovieTrailerModal(movie)"
-      />
-      <font-awesome-icon
-        icon="plus-square"
-        v-if="!isMovieInUserList(movie)"
-        :class="classes.cardIcon"
-        @click="addToProfileList(movie)"
-      />
-
-      <font-awesome-icon
-        icon="times-circle"
-        :class="classes.cardIcon"
-        v-else
-        @click="deleteFromProfileList(movie)"
-      />
-      <font-awesome-icon
-        icon="info-circle"
-        :class="classes.cardIcon"
-        @click="openModal(movie)"
-      />
-    </div>
   </div>
-
-  <MovieModal
-    @onCloseModals="closeModals"
-    v-if="isMovieModalOpen"
-    :clickedMovie="clickedMovie"
-  />
-  <teleport to="#backdrop-root">
-    <Backdrop v-if="isBackdropOpen" @onCloseModals="closeMovieTrailerModal" />
-  </teleport>
-  <teleport to="#overlay-root">
-    <MovieTrailerOverlay
-      v-if="isBackdropOpen"
-      @onCloseMovieTrailerOverlay="closeMovieTrailerModal"
-    />
-  </teleport>
 </template>
 
 <style lang="scss" module="classes">
-@use '@/sass/components/ui/movie-card';
+@use "@/sass/components/ui/movie-card";
 </style>

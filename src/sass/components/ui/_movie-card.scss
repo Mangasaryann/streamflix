@@ -1,4 +1,4 @@
-@use '@/sass/abstracts' as *;
+@use "@/sass/abstracts" as *;
 
 .movieCard {
   position: relative;
@@ -22,4 +22,8 @@
 
 .cardIcon {
   cursor: pointer;
+}
+
+img {
+  height: 100%;
 }

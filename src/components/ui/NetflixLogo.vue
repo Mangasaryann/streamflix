@@ -9,13 +9,15 @@ const router = useRouter(),
 const currentUser = computed(() => store.state.userData.currentUser);
 
 function navigateHome() {
-  !currentUser.value.id ? router.push({ name: "Home" }) : router.push({ name: "Browse" });
+  !currentUser.value.id
+    ? router.push({ name: "Home" })
+    : router.push({ name: "Browse" });
 }
 </script>
 
 <template>
   <img
-    src="@/assets/images/netclone.png"
+    src="@/assets/images/logo.png"
     :class="classes.netflixLogo"
     alt="Netclone logo"
     @click="navigateHome"
@@ -23,5 +25,5 @@ function navigateHome() {
 </template>
 
 <style lang="scss" module="classes">
-@use '@/sass/components/ui/netflix-logo';
+@use "@/sass/components/ui/netflix-logo";
 </style>
